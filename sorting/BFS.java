@@ -56,9 +56,12 @@ public class BFS{
                 else if (result[j] != 0)
                     System.out.print(result[j] * 6 + " ");
             }
+            //added
             System.out.println("");
-            System.out.println(Arrays.deepToString(mmp));
+            // System.out.println(Arrays.deepToString(mmp));
             System.out.println(mmp.length);
+            for(int y: result)
+                System.out.print(y+" ");
         }
     }
 }

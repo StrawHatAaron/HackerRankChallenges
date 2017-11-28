@@ -7,20 +7,21 @@ def bfs(mapp, s):#graph, start
     for i in range(len(result)):
         result[i] = -1
 
-    que = []
-    que.append(s)        
+    que = [s]
+    #que.append(s)        
     #print("s val = {0}".format(s))
     #print(result)
     result[s]=0
-    count = 0
-    
-    while not que:
-        next = que.pop()
-        for j in range(mapp):
-            if mapp[next][j]==1 and result[i]==-1:
-                result[i] = result[next]+1
-                q.append(count)
-                count+=1
+    empty = []
+    while que != empty:
+        nextt = que.pop()
+        #print("does this")
+        for i in range(len(mapp)):
+            if mapp[nextt][i]==1 and result[i]==-1:
+                result[i] = result[nextt]+1
+                que.append(i)
+                print("does this print")
+
     return result
 
 if __name__ == "__main__":
@@ -40,12 +41,13 @@ if __name__ == "__main__":
         #print(mapp)
         #print(len(mapp))
         filled = bfs(mapp, s)
-        #print(filled)
+        print(filled)
 
-        for x in filled:
-            if(x==-1):
-                print("{0} ".format(x), end="")
-            if(x!=0):
-                val=6*x
+        for x in range(len(filled)):
+            if filled[x]==-1:
+                print("{0} ".format(filled[x]), end="")
+            elif filled[x]!=0:
+                val=abs(6*filled[x])
                 print("{0} ".format(val), end="")
         print()
+
