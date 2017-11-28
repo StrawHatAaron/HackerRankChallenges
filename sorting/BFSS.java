@@ -4,7 +4,7 @@ import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-public class BFS {
+public class BFSS {
 
     //get the values unique nodes values entered                                                   number of nodes
     public static ArrayList<Integer> findUniqueNodes(ArrayList<Integer> u, ArrayList<Integer> v, int n){
@@ -27,6 +27,8 @@ public class BFS {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int q = in.nextInt();
+        
+        
         ArrayList<Integer> que = new ArrayList<Integer>();
         ArrayList<Integer> u = new ArrayList<Integer>();//from node
         ArrayList<Integer> v = new ArrayList<Integer>();//to node
