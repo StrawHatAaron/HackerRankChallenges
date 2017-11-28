@@ -7,61 +7,58 @@ public class BFS{
 
     public static int[] BFS(int start, int[][] mmp){
 
-        int[] result = new int[mmp.length];
-        for (int i=0; i<result.length; i++)
-            result[i] = -1;
+    int[] result = new int[mmp.length];
+    for (int i=0; i<result.length; i++)
+        result[i] = -1;
 
-        Queue<Integer> q = new LinkedList<Integer>();
-        q.add(start);
+    Queue<Integer> q = new LinkedList<Integer>();
 
-        result[start] = 0;
-        while(!q.isEmpty()){
-            int next = q.remove();
-            for (int i=0; i < mmp.length; i++){
-                if (mmp[next][i] == 1 && result[i] == -1){
-                    result[i] = result[next] + 1;
-                    q.add(i);
-                }
+    q.add(start);
+    result[start] = 0;
+    while(!q.isEmpty()){
+
+        int next = q.remove();
+        System.out.println("the next " + next);
+        for (int i=0; i < mmp.length; i++){
+            if (mmp[next][i] == 1 && result[i] == -1){
+                result[i] = result[next] + 1;
+                q.add(i);
             }
         }
-        return result;
     }
 
+    return result;
+}
+public static void main(String[] args) {
 
-    public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        Scanner in = new Scanner(System.in);
+    int problems = in.nextInt();
 
-        int problems = in.nextInt();
+    for (int i=0; i < problems; i++){
+        int N = in.nextInt();
+        int M = in.nextInt();
 
-        for (int i=0; i < problems; i++){
-            int N = in.nextInt();
-            int M = in.nextInt();
+        int[][] mmp = new int[N][N];
 
-            int[][] mmp = new int[N][N];
-
-            for (int j=0; j<M; j++){
-                int u = in.nextInt()-1;
-                int v = in.nextInt()-1;
-                mmp[u][v] = 1;
-                mmp[v][u] = 1;//for true
-            }
-
-            int start = in.nextInt()-1;
-
-            int [] result = BFS(start, mmp);
-            for(int j=0; j < result.length; j++){
-                if (result[j] == -1)
-                    System.out.print(result[j] + " ");
-                else if (result[j] != 0)
-                    System.out.print(result[j] * 6 + " ");
-            }
-            //added
-            System.out.println("");
-            // System.out.println(Arrays.deepToString(mmp));
-            System.out.println(mmp.length);
-            for(int y: result)
-                System.out.print(y+" ");
+        for (int j=0; j<M; j++){
+            int u = in.nextInt()-1;
+            int v = in.nextInt()-1;
+            mmp[u][v] = 1;
+            mmp[v][u] = 1;
         }
+
+        int start = in.nextInt()-1;
+
+        int [] result = BFS(start, mmp);
+        for(int j=0; j < result.length; j++){
+            if (result[j] == -1)
+                System.out.print(result[j] + " ");
+            else if (result[j] != 0)
+                System.out.print(result[j] * 6 + " ");
+        }
+        System.out.println("");
+
     }
+}
 }
