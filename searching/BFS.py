@@ -3,20 +3,20 @@ import sys
 
 #perform a breadth first search
 def bfs(mapp, s):#graph, start
-    result = [[0]for x in range(len(mapp))]
-    for i in range(len(result)):
-        result[i] = -1
+    paths = [[0]for x in range(len(mapp))]
+    for i in range(len(paths)):
+        paths[i] = -1
     que = list()
     que.append(s)
-    result[s]=0
+    paths[s]=0
     empty = []
     while que != []:
         nextt = que.pop(0)
         for i in range(len(mapp)):
-            if mapp[nextt][i]==1 and result[i]==-1:
-                result[i] = result[nextt]+1
+            if mapp[nextt][i]==1 and paths[i]==-1:
+                paths[i] = paths[nextt]+1
                 que.append(i)
-    return result
+    return paths
 
 
 if __name__ == "__main__":
@@ -31,8 +31,8 @@ if __name__ == "__main__":
             mapp[u][v]=1
             mapp[v][u]=1       
         s = int(input().strip())-1#start node
-        result = bfs(mapp, s)
-        for x in result:
+        paths = bfs(mapp, s)
+        for x in paths:
             if x==-1:
                 print("{0} ".format(x), end="")
             elif x!=0:
