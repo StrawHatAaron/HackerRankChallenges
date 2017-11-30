@@ -72,14 +72,13 @@ public class Solution {
                 }*/
                 
                 for(int c = 1; c <= cities; c++) {
-                    if(visited[c]==false) {
+                    if(!visited[c]) {
                         dfs(c);
                         connectedComponents++;
                     }
                 }
            
                 //System.out.println(connectedComponents);
-                System.out.println();
                 System.out.println(roadCost * (cities - connectedComponents) + libCost * connectedComponents);
                 connectedComponents = 0;
                 visited = new boolean[10000];
@@ -95,7 +94,7 @@ public class Solution {
         //System.out.println(adjCities[2].get(0));
         //System.out.println(adjCities[2].get(1));
         for (int c = 0; c < adjCities[city].size(); c++){
-            if(visited[adjCities[city].get(c)]==false){
+            if(!visited[adjCities[city].get(c)]){
                 //System.out.println("visiting adjCities[city.get(c)]: "+ adjCities[city].get(c));
                 dfs(adjCities[city].get(c));
             }
