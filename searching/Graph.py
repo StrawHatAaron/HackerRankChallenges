@@ -1,85 +1,47 @@
-#Aaron Miller 11/28/2017
-
-#q=given queries            first
-
-#n=number of cities         second
-#m=number of roads
-#c_lib=cost of library
-#c_road=cost of road
-
-#from_city,to_city=bisectional roads      third
-
+#Aaron Miller 11/28/2017, Roads and Libraries, python 3.6
 import sys
 class Graph():
-    def __init__(self, m):
+    def __init__(self, m, n, c_lib, c_road):
         self.roads = m
-        self.graph = [[0 for column in range(int(m))] for row in range(int(m))]      
+        self.adj_cities = [[0 for column in range(int(m))] for row in range(int(m))]
+        self.visited = [False] * n
+        self.cities = n
+        self.lib_cost = c_lib
+        self.road_cost = c_road
+        self.connected_nodes=0
 
-    #find shortest path
-    def dijkstra(self):
-        min_path = [100000] * self.roads
-        smallest_set = [False] * self.roads
-        number_of_nodes=self.count_nodes()
-        connected_nodes=self.connect_nodes()#what nodes tie to eachother
-        answer = []
+    def depth_first_search(self, city):
+        self.visited[city]=True
+        for c in range(1, len(self.adj_cities)):
+            if self.visited[self.adj_cities[city][c]]==False:
+                self.depth_first_search(self.adj_cities[city][c])
 
-        for x in range(len(self.graph)):
-            for y in range (len(self.graph)):
-                print("LEFT OFF HERE")
-                #if self.graph[x][y]>0 and 
-        return answer
-
-    # A utility function to find the vertex with 
-    # minimum distance value, from the set of vertices 
-    # not yet included in shortest path tree
-    def minDistance(self, dist, sptSet):
- 
-        # Initilaize minimum distance for next node
-        min = sys.maxint
- 
-        # Search not nearest vertex not in the 
-        # shortest path tree
-        for v in range(self.V):
-            if dist[v] < min and sptSet[v] == False:
-                min = dist[v]
-                min_index = v
- 
-        return min_index
-
-    #find the number of node connections per node at index
-    def count_nodes(self):
-        number_of_nodes = [[0]for path in range(len(self.graph))]
-        for x in range(len(self.graph)):
-            number_of_nodes[x]=0
-        for x in range(len(self.graph)):
-            for y in range(len(self.graph)):
-                if self.graph[x][y]==1:
-                    number_of_nodes[x]=number_of_nodes[x]+1
-        return number_of_nodes
-
-    #find the values each node connects directly to
-    def connect_nodes(self):
-        connected_nodes = [[0 for column in range(len(self.graph))] for row in range(len(self.graph))]
-        for x in range(len(self.graph)):
-            for y in range(len(self.graph)):
-                if self.graph[x][y]==1:
-                    #y->to  x should be the index
-                    connected_nodes[x][y]= y+1
-        return connected_nodes
+    #find the smaallest total cost
+    def dijkstra_cost(self):
+        for city in range(self.cities):
+            if self.visited[city] == False:
+                self.depth_first_search(city)
+                self.connected_nodes=self.connected_nodes+1
+        ans = self.road_cost * (self.cities - self.connected_nodes) + self.lib_cost * self.connected_nodes
+        return ans
 
 if __name__ == "__main__":
-    total_cost=0
     q=int(input().strip())
     for que in range(q):
         n, m, c_lib, c_road = input().strip().split()
         n, m, c_lib, c_road = [int(n), int(m), int(c_lib), int(c_road)]
-        g = Graph(m)
         for roads in range(m):
+            g = Graph(m, n, c_lib, c_road)
             from_city, to_city = input().strip().split()
             from_city, to_city = [int(from_city)-1, int(to_city)-1]
-            #fill up the graph with the broken roads
-            g.graph[from_city][to_city]=1
-            g.graph[to_city][from_city]=1
-            print()
-            print(g.graph)
-            print(g.dijkstra())
+            #build a libary in each city then
+            if c_road>c_lib or c_road==0:
+                ans=n*c_lib
+                print(ans)
+            #find how many roads and libraries will be needed
+            else:
+                g.adj_cities[from_city][to_city]=1
+                g.adj_cities[to_city][from_city]=1
+                print()
+                best_cost = g.dijkstra_cost()
+                print(best_cost)
