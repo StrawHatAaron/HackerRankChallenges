@@ -1,4 +1,4 @@
-#!/bin/python3
+#Aaron Miller
 import sys
 
 #perform a breadth first search

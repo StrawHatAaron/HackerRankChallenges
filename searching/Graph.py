@@ -1,63 +1,54 @@
 #Aaron Miller 11/28/2017, Roads and Libraries, python 3.6
 import sys
 class Graph():
-    def __init__(self, m, n, c_lib, c_road, a):
-        self.roads = m
-        self.adj_cities = [[0 for column in range(int(a))] for row in range(int(a))]
-        self.connected_adj_cities = [[0 for column in range(int(a))] for row in range(int(a))]
-        self.visited = [[False for column in range(int(a))] for row in range(int(a))]
-        self.cities = n
-        self.lib_cost = c_lib
-        self.road_cost = c_road
-        self.connected_nodes=1
+    """docstring for Graph"""
+    def __init__(self, cities):
+        self.visited = [[False] for x in range(cities+1)]
+        self.adjCities = [[] for x in range(cities+1)]
+        self.connectedComponents = 0
 
-    def isEmpty(self):
-        for x in range(len(self.adj_cities)):
-            for y in range(len(self.adj_cities)):
-                if self.adj_cities[x][y]==1:
-                    return False
-        return True
+    def dfs(self, city):
+        visited[city] = True
+        for c in range():
+            if visited[adjCities[city].index(c)]:
+                dfs(adjCities[city].index(c))
 
-    #find the values each node connects directly to
-    def connect_adj_cities(self):
-        for x in range(len(self.adj_cities)):
-            for y in range(len(self.adj_cities)):
-                if self.adj_cities[x][y]==1:
-                    self.connected_adj_cities[x][y]= y
-
-    def depth_first_search(self, city):
-        self.visited[city]=True
-        for c in range(len(1, self.connected_adj_cities)):
-            if self.visited[self.connected_adj_cities[city][c]]==False:
-                print(self.connected_adj_cities[city][c])
-                self.depth_first_search(self.connected_adj_cities[city][c])
-
-    #find the smallest total cost
-    def dijkstra_cost(self):
-        for city in range(1, self.cities):
-            if self.visited[city] == False:
-                self.depth_first_search(city)
-                self.connected_nodes=self.connected_nodes+1
-        ans = self.road_cost * (self.cities - self.connected_nodes) + self.lib_cost * self.connected_nodes
-        return ans
 
 if __name__ == "__main__":
-    q=int(input().strip())
-    for que in range(q):
-        n, m, c_lib, c_road = input().strip().split()
-        n, m, c_lib, c_road = [int(n), int(m), int(c_lib), int(c_road)]
-        g = Graph(m, n, c_lib, c_road, 1000)
-        for roads in range(m):
-            from_city, to_city = input().strip().split()
-            from_city, to_city = [int(from_city)-1, int(to_city)-1]
-            g.adj_cities[from_city][to_city]=1
-            g.adj_cities[to_city][from_city]=1
-        #build a libary in each city then
-        if c_road>c_lib or c_road==0 or g.isEmpty():
-            ans=n*c_lib
-            print(ans)
-        #find how many roads and libraries will be needed
+    q = input().strip().split()
+    q = int()
+    print()
+    for a in range(q+1):
+        cities, roads, libCost, roadCost = input().strip().split()
+        cities, roads, libCost, roadCost = [int(cities), int(roads), int(libCost), int(roadCost)]
+
+        if roadCost >= libCost or roads == 0:
+            print(libCost*cities)
+            for i in range(roads*2):
+                idk = input()
+
         else:
-            g.connect_adj_cities()
-            best_cost = g.dijkstra_cost()
-            print(best_cost)
+            #adjCities = [[] for x in range(cities+1)]
+            #print(adjCities)
+            #for c in range(cities):
+                #adjCities[c]=java would have instantiatio
+            #visited = [[False] for x in range(cities+1)]
+            g = Graph(cities)
+
+            #init adjCities
+            for i in range(roads):
+                c1, c2 = input().strip().split()
+                c1, c2 = [int(c1), int(c2)]
+
+                g.adjCities[c1].append(c2)
+                g.adjCities[c2].append(c1)   
+
+            for c in range(cities+1):
+                if g.visited[c]==False:
+                    dfs(c)
+                    g.connectedComponents=g.connectedComponents+1
+            print(roadCost * (cities - g.connectedComponents) + libCost * g.connectedComponents)
+
+
+
+

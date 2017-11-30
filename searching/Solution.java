@@ -15,15 +15,10 @@ public class Solution {
         int q = in.nextInt(); // number of queries
         for(int a0 = 0; a0 < q; a0++){
             int cities = in.nextInt(); // number of cities
-            //System.out.println("Total number of cities: "+cities);
             int roads = in.nextInt(); // number of roads
-            //System.out.println("Total number of bidirectional roads: "+roads);
             int libCost = in.nextInt(); // cost of building a library
-            //System.out.println("Cost of building library: "+libCost);
             int roadCost = in.nextInt(); // cost of repairing a road
-            //System.out.println("Cost of repairing road: "+roadCost);
 
-            
             if (roadCost >= libCost || roads == 0){ 
                 // optimal scenario/edge (corner) case + a for loop to get correct nextInts
                 System.out.println(libCost * cities);
@@ -37,9 +32,9 @@ public class Solution {
             else{
                 //Now we must try to get all the connected components
                 
-                adjCities = (ArrayList<Integer>[]) new ArrayList[cities+1];
+                adjCities = (ArrayList<Integer>[]) new ArrayList[cities+1];//array of array lists
                 for (int c = 0; c <= cities; c++) {
-                    adjCities[c] = new ArrayList<Integer>();
+                    adjCities[c] = new ArrayList<Integer>();//it is an array of lists
                 }
                 
                 visited = new boolean[cities+1];
@@ -52,25 +47,10 @@ public class Solution {
                     adjCities[c1].add(c2);
                     adjCities[c2].add(c1);
                 }
-                
-                //System.out.println(adjCities.length);
-                
-                //Checking our adjCities
-                /*for (int i = 0; i < roads; i++){
-                    System.out.println(adjCities[i]);
-                    //for (int index = 0; index < adjCities[i].size(); index++)
-                        //System.out.println(adjCities[i].get(index));
-                }*/
-                    
-                //System.out.println(adjCities[1].size());
-                //System.out.println(adjCities[1].get(1));
-                
-                
-                //Boolean arrays are initialized to false in Java automatically
-                /*for (int i = 0; i <= cities; i++){
-                    visited[i] = false;
-                }*/
-                
+                //***********************
+                //for(ArrayList<Integer> a: adjCities)
+                System.out.println(Arrays.toString(adjCities));    
+                //***********************
                 for(int c = 1; c <= cities; c++) {
                     if(!visited[c]) {
                         dfs(c);
@@ -89,13 +69,8 @@ public class Solution {
     
     private static void dfs(int city){
         visited[city] = true;
-        //System.out.println("visited[city] = true: "+city);
-        //System.out.println("adjCities[city].size(): "+adjCities[city].size());
-        //System.out.println(adjCities[2].get(0));
-        //System.out.println(adjCities[2].get(1));
         for (int c = 0; c < adjCities[city].size(); c++){
             if(!visited[adjCities[city].get(c)]){
-                //System.out.println("visiting adjCities[city.get(c)]: "+ adjCities[city].get(c));
                 dfs(adjCities[city].get(c));
             }
         }
